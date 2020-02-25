@@ -1,4 +1,4 @@
-package library.ui.addbook;
+package library.assistant.ui.addbook;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -6,9 +6,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import library.assistant.database.DatabaseHandler;
 
 import java.net.URL;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
@@ -30,11 +34,16 @@ public class Controller implements Initializable {
     @FXML
     private Button cancelButton;
 
+    @FXML
+    private AnchorPane rootPane;
+
     DatabaseHandler databaseHandler;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         databaseHandler = new DatabaseHandler();
+
+        checkData();
     }
 
     @FXML
@@ -76,5 +85,20 @@ public class Controller implements Initializable {
 
     @FXML
     public void cancel(ActionEvent actionEvent) {
+        Stage stage = (Stage) rootPane.getScene().getWindow();
+        stage.close();
+    }
+
+    private void checkData() {
+        String query = "SELECT * FROM BOOK";
+        ResultSet rs = databaseHandler.execQuery(query);
+            try {
+                while (rs.next()) {
+                    String titlex = rs.getString("title");
+                    System.out.println(titlex);
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
     }
 }

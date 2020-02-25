@@ -33,8 +33,6 @@ public class DatabaseHandler {
 
             DatabaseMetaData dbm = conn.getMetaData();
             ResultSet tables = dbm.getTables(null, null, TABLE_NAME.toUpperCase(), null);
-            System.out.println(">>>>");
-            System.out.println(tables.next());
             if (tables.next()) {
                 System.out.println("Table " + TABLE_NAME + " already exists.");
             } else {
