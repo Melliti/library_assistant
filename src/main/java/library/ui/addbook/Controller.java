@@ -3,6 +3,7 @@ package library.ui.addbook;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import library.assistant.database.DatabaseHandler;
@@ -38,6 +39,39 @@ public class Controller implements Initializable {
 
     @FXML
     public void addBook(ActionEvent actionEvent) {
+        String bookID = id.getText();
+        String bookAuthor = author.getText();
+        String bookName = title.getText();
+        String bookPublisher = publisher.getText();
+
+        if (bookID.isEmpty() || bookAuthor.isEmpty() ||bookName.isEmpty() || bookPublisher.isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText(null);
+            alert.setContentText("Please enter all fields");
+            alert.showAndWait();
+            return;
+        }
+
+        String query = "INSERT INTO BOOK VALUES (" +
+                "'" + bookID + "', " +
+                "'" + bookName + "', " +
+                "'" + bookAuthor + "', " +
+                "'" + bookPublisher + "', " +
+                "true" +
+                ")";
+        System.out.println(query);
+
+        if (databaseHandler.execAction(query)) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setHeaderText(null);
+            alert.setContentText("Success");
+            alert.showAndWait();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText(null);
+            alert.setContentText("Failed");
+            alert.showAndWait();
+        }
     }
 
     @FXML
