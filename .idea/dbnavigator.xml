@@ -2,7 +2,7 @@
 <project version="4">
   <component name="DBNavigator.Project.DataEditorManager">
     <record-view-column-sorting-type value="BY_INDEX" />
-    <value-preview-text-wrapping value="true" />
+    <value-preview-text-wrapping value="false" />
     <value-preview-pinned value="false" />
   </component>
   <component name="DBNavigator.Project.DataExportManager">
@@ -25,13 +25,8 @@
     <show-object-properties value="true" />
     <loaded-nodes>
       <connection connection-id="ee00834f-e5eb-42fa-8452-562ec94451e6">
-        <schema name="information_schema" object-types="procedure, view, table, function" />
-        <schema name="mellibet" object-types="procedure, view, table, function" />
-        <schema name="mysql" object-types="procedure, view, table, function" />
-        <schema name="performance_schema" object-types="procedure, view, table, function" />
-        <schema name="sakila" object-types="procedure, view, table, function" />
-        <schema name="sys" object-types="procedure, view, table, function" />
-        <schema name="world" object-types="procedure, view, table, function" />
+        <schema name="mellibet" object-types="table, view" />
+        <schema name="world" object-types="table, view" />
       </connection>
     </loaded-nodes>
   </component>
