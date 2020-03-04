@@ -1,4 +1,4 @@
-package library.assistant.ui.listbook;
+package library.assistant.ui.listmember;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -9,16 +9,16 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.net.URL;
 
-public class BookListLoader extends Application {
+public class MemberListLoader extends Application {
     @Override
-    public void start(Stage primaryStage) throws Exception{
-        URL url = new File("src/main/java/library/assistant/ui/listBook/book_list.fxml").toURI().toURL();
+    public void start(Stage primaryStage) throws Exception {
+        URL url = new File("src/main/java/library/assistant/ui/listmember/member_list.fxml").toURI().toURL();
         Parent root = FXMLLoader.load(url);
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
     }
 
-    public static void main(String[] args) {
-        launch(args);
-    }
+    public static void Main (String args[]) {launch(args);}
 }
+
+

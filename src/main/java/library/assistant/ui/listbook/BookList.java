@@ -68,7 +68,6 @@ public class BookList implements Initializable {
         } catch (SQLException e) {
             Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, e);
         }
-
         tableView.getItems().setAll(list);
     }
 
