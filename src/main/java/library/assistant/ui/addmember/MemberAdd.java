@@ -34,7 +34,7 @@ public class MemberAdd implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        databaseHandler = new DatabaseHandler();
+        databaseHandler = DatabaseHandler.getInstance();
     }
 
     @FXML

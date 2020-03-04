@@ -15,7 +15,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-public class Controller implements Initializable {
+public class AddBook implements Initializable {
     @FXML
     private TextField title;
 
@@ -41,7 +41,7 @@ public class Controller implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        databaseHandler = new DatabaseHandler();
+        databaseHandler = DatabaseHandler.getInstance();
 
         checkData();
     }

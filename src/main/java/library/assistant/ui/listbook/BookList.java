@@ -11,7 +11,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import library.assistant.database.DatabaseHandler;
-import library.assistant.ui.addbook.Controller;
+import library.assistant.ui.addbook.AddBook;
 
 import java.net.URL;
 import java.sql.ResultSet;
@@ -51,7 +51,7 @@ public class BookList implements Initializable {
     }
 
     private void loadData() {
-        DatabaseHandler handler  = new DatabaseHandler();
+        DatabaseHandler handler  = DatabaseHandler.getInstance();
         String query = "SELECT * from BOOK";
         ResultSet rs = handler.execQuery(query);
         try {
@@ -66,7 +66,7 @@ public class BookList implements Initializable {
                 System.out.println(titlex);
             }
         } catch (SQLException e) {
-            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(AddBook.class.getName()).log(Level.SEVERE, null, e);
         }
         tableView.getItems().setAll(list);
     }
