@@ -18,7 +18,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="library.assistant.ui.main.Main">
    <children>
       <BorderPane prefHeight="200.0" prefWidth="200.0">
          <top>
@@ -45,7 +45,7 @@
          <right>
             <VBox prefHeight="375.0" prefWidth="144.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button contentDisplay="TOP" mnemonicParsing="false" prefHeight="150.0" prefWidth="150.0" text="Add Member">
+                  <Button contentDisplay="TOP" mnemonicParsing="false" onAction="#loadAddMember" prefHeight="150.0" prefWidth="150.0" text="Add Member">
                      <graphic>
                         <ImageView fitHeight="31.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -54,16 +54,16 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="150.0" prefWidth="150.0" text="Add Book">
+                  <Button contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#loadAddBook" prefHeight="150.0" prefWidth="150.0" text="Add Book">
                      <graphic>
                         <ImageView fitHeight="31.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../icons/addmember.png" />
+                              <Image url="@../icons/addbook.png" />
                            </image>
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="150.0" prefWidth="150.0" text="View Members">
+                  <Button contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#loadMemberTable" prefHeight="150.0" prefWidth="150.0" text="View Members">
                      <graphic>
                         <ImageView fitHeight="31.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -72,7 +72,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button contentDisplay="TOP" layoutX="10.0" layoutY="70.0" mnemonicParsing="false" prefHeight="150.0" prefWidth="150.0" text="View Books">
+                  <Button contentDisplay="TOP" layoutX="10.0" layoutY="70.0" mnemonicParsing="false" onAction="#loadBookTable" prefHeight="150.0" prefWidth="150.0" text="View Books">
                      <graphic>
                         <ImageView fitHeight="31.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -140,7 +140,7 @@
                                     </HBox>
                                     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                                        <children>
-                                          <Button mnemonicParsing="false" text="Issue" />
+                                          <Button mnemonicParsing="false" styleClass="setup-button" stylesheets="@main.css" text="Issue" />
                                        </children>
                                     </HBox>
                                  </children>
@@ -170,8 +170,16 @@
                                  <bottom>
                                     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                                        <children>
-                                          <Button mnemonicParsing="false" text="Renew" />
-                                          <Button layoutX="212.0" layoutY="48.0" mnemonicParsing="false" text="Submission" />
+                                          <Button mnemonicParsing="false" styleClass="setup-button" stylesheets="@main.css" text="Renew">
+                                             <HBox.margin>
+                                                <Insets right="20.0" />
+                                             </HBox.margin>
+                                          </Button>
+                                          <Button layoutX="212.0" layoutY="48.0" mnemonicParsing="false" styleClass="setup-button" stylesheets="@main.css" text="Submission">
+                                             <HBox.margin>
+                                                <Insets right="20.0" />
+                                             </HBox.margin>
+                                          </Button>
                                        </children>
                                     </HBox>
                                  </bottom>
