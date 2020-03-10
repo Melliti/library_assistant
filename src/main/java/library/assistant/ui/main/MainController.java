@@ -7,6 +7,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
@@ -18,6 +21,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -41,6 +45,8 @@ public class MainController implements Initializable {
     public Text member_name;
     @FXML
     public Text member_contact;
+    @FXML
+    public Button loadIssueOperation;
 
     DatabaseHandler handler;
 
@@ -138,6 +144,46 @@ public class MainController implements Initializable {
         }
         if (!flag) {
             member_name.setText("No such member available");
+        }
+    }
+
+    @FXML
+    private void loadIssueOperation(ActionEvent event) {
+        String memberID = memberIDInput.getText();
+        String bookID = bookIDInput.getText();
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Issue confirmation");
+        alert.setHeaderText(null);
+        alert.setContentText("Are you sure you want to issue the book " + book_name.getText() + " to \n"
+        + member_name.getText() + " ?");
+
+        Optional<ButtonType> response = alert.showAndWait();
+        if (ButtonType.OK == response.get()) {
+            String insertQu = "INSERT INTO ISSUE(memberID, bookID) VALUES ("
+                    + "'" + memberID +  "',"
+                    + "'" + bookID +  "')";
+            String updateQu = "UPDATE BOOK SET isAvail = false WHERE id = '" + bookID + "'";
+
+            if (handler.execAction(insertQu) && handler.execAction(updateQu)) {
+                Alert alertConfirm = new Alert(Alert.AlertType.INFORMATION);
+                alertConfirm.setTitle("Success");
+                alertConfirm.setHeaderText(null);
+                alertConfirm.setContentText("Book issue complete");
+                alertConfirm.showAndWait();
+            } else {
+                Alert alertConfirm = new Alert(Alert.AlertType.ERROR);
+                alertConfirm.setTitle("Failed");
+                alertConfirm.setHeaderText(null);
+                alertConfirm.setContentText("Book issue failed");
+                alertConfirm.showAndWait();
+            }
+        } else {
+            Alert alertConfirm = new Alert(Alert.AlertType.INFORMATION);
+            alertConfirm.setTitle("Cancelled");
+            alertConfirm.setHeaderText(null);
+            alertConfirm.setContentText("Book issue cancelled");
+            alertConfirm.showAndWait();
         }
     }
 
