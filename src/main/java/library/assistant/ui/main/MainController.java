@@ -1,16 +1,15 @@
 package library.assistant.ui.main;
 
 import com.jfoenix.effects.JFXDepthManager;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -21,6 +20,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -47,6 +47,10 @@ public class MainController implements Initializable {
     public Text member_contact;
     @FXML
     public Button loadIssueOperation;
+    @FXML
+    public TextField bookID;
+    @FXML
+    public ListView<String> issueDataList;
 
     DatabaseHandler handler;
 
@@ -196,6 +200,44 @@ public class MainController implements Initializable {
     void clearMemberCache() {
         member_contact.setText("");
         member_name.setText("");
+    }
+
+    @FXML
+    public void loadBookRenewal(ActionEvent actionEvent) {
+        ObservableList<String> issueData = FXCollections.observableArrayList();
+        String id = bookID.getText();
+        String qu = "SELECT * FROM ISSUE WHERE bookID = '" + id + "'";
+        ResultSet rs = handler.execQuery(qu);
+        try {
+            while (rs.next()) {
+                String mBookID = id;
+                String mMemberID = rs.getString("memberID");
+                Timestamp mIssueTime = rs.getTimestamp("issueTime");
+                int mRenewCount = rs.getInt("renew_count");
+
+                issueData.add("Issue Date and Time : " + mIssueTime.toString());
+                issueData.add("Renew count :" + mRenewCount);
+
+                qu = "SELECT * FROM BOOK WHERE ID = '" + mBookID + "'";
+                ResultSet bookRes = handler.execQuery(qu);
+                while (bookRes.next()) {
+                    issueData.add("Book name:" + bookRes.getString("title"));
+                    issueData.add("Book ID:" + bookRes.getString("id"));
+                    issueData.add("Author:" + bookRes.getString("author"));
+                    issueData.add("Publisher:" + bookRes.getString("publisher"));
+                }
+                qu = "SELECT * FROM MEMBER WHERE ID = '" + mMemberID + "'";
+                ResultSet memberRes = handler.execQuery(qu);
+                while (memberRes.next()) {
+                    issueData.add("Member name:" + memberRes.getString("name"));
+                    issueData.add("Mobile:" + memberRes.getString("mobile"));
+                    issueData.add("Email:" + memberRes.getString("email"));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        issueDataList.getItems().setAll(issueData);
     }
 }
  
