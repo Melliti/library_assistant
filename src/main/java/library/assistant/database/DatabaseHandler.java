@@ -80,6 +80,29 @@ public class DatabaseHandler {
         }
     }
 
+    void setupIssueTable() {
+        String TABLE_NAME = "ISSUE";
+        try {
+            stmt = conn.createStatement();
+
+            DatabaseMetaData dbm = conn.getMetaData();
+            ResultSet tables = dbm.getTables(null, null, TABLE_NAME.toUpperCase(), null);
+            if (tables.next()) {
+                System.out.println("Table " + TABLE_NAME + " already exists.");
+            } else {
+                stmt.execute("CREATE TABLE " + TABLE_NAME
+                        + "            (bookID varchar(200) primary key,\n"
+                        + "             memberID varchar(200),\n"
+                        + "             issueTime timestamp default CURRENT_TIMESTAMP,\n"
+                        + "             renew_count integer default 0,\n"
+                        + "             FOREIGN KEY (bookID) REFERENCES BOOK(id),\n"
+                        + "             FOREIGN KEY (memberID) REFERENCES MEMBER(id)");
+            }
+        } catch (SQLException e) {
+            System.err.println(e.getMessage() + "--- setupDatabase");
+        }
+    }
+
     public ResultSet execQuery(String query) {
         ResultSet result;
         try {

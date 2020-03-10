@@ -17,7 +17,13 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(url);
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
-        DatabaseHandler.getInstance();
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                DatabaseHandler.getInstance();
+            }
+        }).start();
     }
 
 

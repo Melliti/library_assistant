@@ -81,6 +81,7 @@ public class MainController implements Initializable {
 
     @FXML
     private void loadBookInfo (ActionEvent event) {
+        clearBookCache();
         String id = bookIDInput.getText();
         System.out.println(id);
         String qu = "SELECT * FROM BOOK WHERE id = '" + id + "'";
@@ -117,6 +118,38 @@ public class MainController implements Initializable {
 
     @FXML
     public void loadMemberInfo(ActionEvent actionEvent) {
+        clearMemberCache();
+        String id = memberIDInput.getText();
+        String qu = "SELECT * FROM MEMBER WHERE id = '" + id + "'";
+        ResultSet rs = handler.execQuery(qu);
+        Boolean flag = false;
+
+        try {
+            if (rs.next()) {
+                String mName = rs.getString("name");
+                String mContact = rs.getString("mobile");
+                member_name.setText(mName);
+                member_contact.setText(mContact);
+
+                flag = true;
+            }
+        } catch (SQLException e) {
+            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, e);
+        }
+        if (!flag) {
+            member_name.setText("No such member available");
+        }
+    }
+
+    void clearBookCache() {
+        book_name.setText("");
+        book_author.setText("");
+        book_status.setText("");
+    }
+
+    void clearMemberCache() {
+        member_contact.setText("");
+        member_name.setText("");
     }
 }
  
